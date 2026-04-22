@@ -6,12 +6,6 @@ export default function Header() {
     >
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div
-            className="w-6 h-6 rounded-md flex items-center justify-center shrink-0"
-            style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
-          >
-            <span className="text-white text-xs font-bold">M</span>
-          </div>
           <span className="text-sm font-semibold" style={{ color: '#e5e7eb' }}>Moral Shift Research</span>
         </div>
         <nav className="hidden sm:flex gap-6 text-sm">

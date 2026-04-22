@@ -15,12 +15,6 @@ export default function Footer() {
           {/* Left */}
           <div>
             <div className="flex items-center gap-2.5 mb-3">
-              <div
-                className="w-6 h-6 rounded-md flex items-center justify-center shrink-0"
-                style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
-              >
-                <span className="text-white text-xs font-bold">M</span>
-              </div>
               <p className="text-sm font-semibold" style={{ color: '#e5e7eb' }}>Moral Shift in AI Reasoning</p>
             </div>
             <p className="text-xs mb-1" style={{ color: '#6b7280' }}>AI & Humanity · CS 4501 · 2026</p>
