@@ -1,24 +1,13 @@
 import { useState } from 'react';
 import Plot from '../PlotlyComponent';
-import { MODELS, STRATEGIES, STRATEGY_TYPE, driftRates, overallDrift, modelInfo } from '../data/researchData';
+import { MODELS, STRATEGIES, driftRates, overallDrift, modelInfo } from '../data/researchData';
 import ModelLogo from './ModelLogo';
 
 const VIEW_OPTIONS = [
-  { id: 'byStrategy',  label: 'By Strategy' },
-  { id: 'overall',     label: 'Overall Shift' },
-  { id: 'stabVsInd',   label: 'Stabilizers vs Inducers' },
+  { id: 'byStrategy', label: 'By Strategy' },
+  { id: 'overall',    label: 'Overall Shift' },
 ];
 
-// Average drift across inducer strategies per model
-const inducerAvg = (m) => {
-  const vals = STRATEGIES.map((s, i) => STRATEGY_TYPE[s] === 'inducer' ? driftRates[m][i] : null).filter(v => v !== null);
-  return vals.reduce((a, b) => a + b, 0) / vals.length;
-};
-// Average drift across stabilizer strategies per model
-const stabilizerAvg = (m) => {
-  const vals = STRATEGIES.map((s, i) => STRATEGY_TYPE[s] === 'stabilizer' ? driftRates[m][i] : null).filter(v => v !== null);
-  return vals.reduce((a, b) => a + b, 0) / vals.length;
-};
 
 export default function CompareModels() {
   const [view,     setView]     = useState('byStrategy');
@@ -51,26 +40,6 @@ export default function CompareModels() {
     hovertemplate: '<b>%{y}</b><br>Avg shift rate: <b>%{x}%</b><extra></extra>',
   }];
 
-  // ── Stabilizers vs Inducers ─────────────────────────────────────────────────
-  const stabVsIndData = [
-    {
-      type: 'bar',
-      name: 'Inducers (Persuasion, Role, Emotional)',
-      x: MODELS,
-      y: MODELS.map(m => Math.round(inducerAvg(m) * 100)),
-      marker: { color: '#f87171' },
-      hovertemplate: '<b>%{x}</b><br>Avg inducer shift: <b>%{y}%</b><extra></extra>',
-    },
-    {
-      type: 'bar',
-      name: 'Stabilizers (Ethical Reminder, Self-Consistency)',
-      x: MODELS,
-      y: MODELS.map(m => Math.round(stabilizerAvg(m) * 100)),
-      marker: { color: '#4ade80' },
-      hovertemplate: '<b>%{x}</b><br>Avg stabilizer shift: <b>%{y}%</b><extra></extra>',
-    },
-  ];
-
   const sharedLayout = {
     paper_bgcolor: 'transparent',
     plot_bgcolor:  'transparent',
@@ -95,16 +64,6 @@ export default function CompareModels() {
     yaxis: { tickfont: { size: 13, color: '#374151' }, linecolor: 'transparent', gridcolor: 'transparent', fixedrange: true, automargin: true },
     margin: { l: 20, r: 70, t: 10, b: 40 },
     height: 260,
-  };
-
-  const stabVsIndLayout = {
-    ...sharedLayout,
-    barmode: 'group', bargap: 0.3, bargroupgap: 0.1,
-    xaxis: { tickfont: { size: 13, color: '#374151' }, linecolor: '#e5e7eb', gridcolor: 'transparent', fixedrange: true },
-    yaxis: { range: [0, 115], ticksuffix: '%', tickfont: { size: 10, family: 'JetBrains Mono', color: '#9ca3af' }, gridcolor: '#f3f4f6', linecolor: 'transparent', zerolinecolor: '#e5e7eb', fixedrange: true, title: { text: 'Avg shift rate', font: { size: 11 } } },
-    legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: -0.22, font: { size: 11 }, bgcolor: 'transparent' },
-    margin: { l: 54, r: 20, t: 16, b: 80 },
-    height: 340,
   };
 
   return (
@@ -134,13 +93,6 @@ export default function CompareModels() {
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-        {view === 'stabVsInd' && (
-          <div className="mb-3 p-3 rounded-xl bg-amber-50 border border-amber-200">
-            <p className="text-sm text-amber-800">
-              <span className="font-semibold">The key finding:</span> Even the green stabilizer bars show significant shift rates — meaning models changed their moral stance even when they were specifically prompted NOT to.
-            </p>
-          </div>
-        )}
         <div key={chartKey} className="animate-fade-in">
           {view === 'byStrategy' && (
             <Plot data={byStrategyData} layout={byStratLayout} config={{ responsive: true, displayModeBar: false }} style={{ width: '100%' }} useResizeHandler />
@@ -149,12 +101,6 @@ export default function CompareModels() {
             <>
               <p className="text-xs text-gray-400 mb-2 font-mono">Average shift rate across all 5 strategies</p>
               <Plot data={overallData} layout={overallLayout} config={{ responsive: true, displayModeBar: false }} style={{ width: '100%' }} useResizeHandler />
-            </>
-          )}
-          {view === 'stabVsInd' && (
-            <>
-              <p className="text-xs text-gray-500 mb-3">Red = drift-inducing strategies avg &nbsp;·&nbsp; Green = stabilizing strategies avg</p>
-              <Plot data={stabVsIndData} layout={stabVsIndLayout} config={{ responsive: true, displayModeBar: false }} style={{ width: '100%' }} useResizeHandler />
             </>
           )}
         </div>

@@ -9,31 +9,41 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-gray-100 mt-10" style={{ background: '#f9fafb' }}>
-      <div className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex flex-col sm:flex-row justify-between gap-8">
+    <footer style={{ background: '#09090f', borderTop: '1px solid #1f2937' }}>
+      <div className="max-w-5xl mx-auto px-6 py-12">
+        <div className="flex flex-col sm:flex-row justify-between gap-10 mb-8">
+          {/* Left */}
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-5 h-5 rounded flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}>
-                <span className="text-white text-[10px] font-bold">M</span>
+            <div className="flex items-center gap-2.5 mb-3">
+              <div
+                className="w-6 h-6 rounded-md flex items-center justify-center shrink-0"
+                style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}
+              >
+                <span className="text-white text-xs font-bold">M</span>
               </div>
-              <p className="text-sm font-semibold text-gray-700">Moral Shift in AI Reasoning</p>
+              <p className="text-sm font-semibold" style={{ color: '#e5e7eb' }}>Moral Shift in AI Reasoning</p>
             </div>
-            <p className="text-xs text-gray-400">AI & Humanity · 2026</p>
-            <p className="text-xs text-gray-400 mt-1">ChatGPT · Claude · DeepSeek · Gemini</p>
-            <p className="text-xs text-gray-300 mt-4">Built with React, Vite &amp; Plotly.js</p>
+            <p className="text-xs mb-1" style={{ color: '#6b7280' }}>AI & Humanity · CS 4501 · 2026</p>
+            <p className="text-xs" style={{ color: '#6b7280' }}>ChatGPT · Claude · DeepSeek · Gemini</p>
+            <p className="text-xs mt-4" style={{ color: '#374151' }}>Built with React, Vite & Plotly.js</p>
           </div>
 
+          {/* Right: team */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">The Amber Team</p>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-1">
+            <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#4b5563' }}>
+              The Amber Team
+            </p>
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-1.5">
               {team.map(name => (
-                <li key={name} className="text-sm text-gray-600 font-medium">{name}</li>
+                <li key={name} className="text-sm font-medium" style={{ color: '#9ca3af' }}>{name}</li>
               ))}
             </ul>
           </div>
         </div>
-        <p className="text-xs text-gray-300 mt-8 text-center">© 2026 The Amber Team</p>
+
+        <div className="border-t pt-6 text-center" style={{ borderColor: '#1f2937' }}>
+          <p className="text-xs" style={{ color: '#374151' }}>© 2026 The Amber Team · University of Virginia</p>
+        </div>
       </div>
     </footer>
   );

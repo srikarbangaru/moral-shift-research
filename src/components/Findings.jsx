@@ -25,9 +25,9 @@ const FINDING_CARDS = [
     bg: '#f0fdf4',
   },
   {
-    emoji: '💔',
-    title: 'Harm questions shifted every single time',
-    body: 'For ChatGPT, all three Harm questions changed from B to A under every single strategy tested - persuasion, role prompting, emotional framing, ethical reminder, AND self-consistency. No strategy protected this dimension.',
+    emoji: '🤔',
+    title: 'Models gave inconsistent justifications',
+    body: 'When models changed their answers, they often provided confident, well-reasoned explanations for both their original and revised stances - suggesting that surface-level reasoning does not guarantee stable moral values.',
     color: '#ef4444',
     bg: '#fef2f2',
   },
@@ -125,7 +125,7 @@ export default function Findings() {
         </p>
         <div className="flex gap-4 text-xs text-gray-400 mb-4 flex-wrap">
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-indigo-500 inline-block" /> Baseline</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-400 inline-block" /> Drift-inducing</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-400 inline-block" /> Shift-inducing</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-400 inline-block" /> Stabilizing</span>
         </div>
 
