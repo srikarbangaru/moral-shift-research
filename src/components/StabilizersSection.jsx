@@ -53,11 +53,12 @@ const layout = {
 
 export default function StabilizersSection() {
   return (
-    <section id="stabilizers" className="max-w-5xl mx-auto px-6 py-10">
-      <div className="border-t border-gray-200 pt-10 mb-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">The paradox</p>
-        <h2 className="text-2xl font-bold text-gray-900">Do stabilizers actually work?</h2>
-        <p className="text-sm text-gray-500 mt-1 max-w-2xl">
+    <section id="stabilizers" style={{ background: "#0d0d18", borderTop: "1px solid #1f2937", borderBottom: "1px solid #1f2937" }}>
+      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="pt-10 mb-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#4b5563] mb-2">The paradox</p>
+        <h2 className="text-2xl font-bold text-[#f9fafb]">Do stabilizers actually work?</h2>
+        <p className="text-sm text-[#6b7280] mt-1 max-w-2xl">
           We expected inducer strategies to cause shift and stabilizer strategies to prevent it.
           The data tells a different story.
         </p>
@@ -83,7 +84,7 @@ export default function StabilizersSection() {
       </div>
 
       {/* Chart */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
+      <div className="rounded-2xl border border-[#1f2937] bg-[rgba(255,255,255,0.03)] p-5 mb-6">
         <Plot
           data={chartData}
           layout={layout}
@@ -104,15 +105,15 @@ export default function StabilizersSection() {
             <div key={m} className="rounded-2xl border p-4" style={{ background: mi.bg, borderColor: mi.border }}>
               <div className="flex items-center justify-between mb-3">
                 <ModelLogo model={m} size={20} />
-                {mi.logoType === 'icon' && <span className="text-xs font-semibold text-gray-600">{m}</span>}
+                {mi.logoType === 'icon' && <span className="text-xs font-semibold text-[#9ca3af]">{m}</span>}
               </div>
               <div className="space-y-2">
                 <div>
-                  <p className="text-xs text-gray-400 mb-0.5">Inducers avg</p>
+                  <p className="text-xs text-[#4b5563] mb-0.5">Inducers avg</p>
                   <p className="text-xl font-bold text-red-500">{indPct}%</p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-400 mb-0.5">Stabilizers avg</p>
+                  <p className="text-xs text-[#4b5563] mb-0.5">Stabilizers avg</p>
                   <p className="text-xl font-bold text-green-600">{stbPct}%</p>
                 </div>
                 <div
@@ -129,6 +130,7 @@ export default function StabilizersSection() {
           );
         })}
       </div>
+    </div>
     </section>
   );
 }

@@ -88,12 +88,13 @@ export default function ModelExplorer() {
   };
 
   return (
-    <section id="explore" className="max-w-5xl mx-auto px-6 py-10">
-      <div className="border-t border-gray-200 pt-10 mb-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Explore by model</p>
-        <h2 className="text-2xl font-bold text-gray-900">How often did each model reverse its position?</h2>
-        <p className="text-sm text-gray-500 mt-1 max-w-2xl">
-          Each bar shows the percentage of questions where the model gave a different answer after that strategy was applied.
+    <section id="explore" style={{ background: '#0d0d18', borderTop: '1px solid #1f2937', borderBottom: '1px solid #1f2937' }}>
+    <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="mb-8">
+        <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>Explore by model</p>
+        <h2 className="text-3xl font-bold mb-2" style={{ color: '#f9fafb' }}>How often did each model reverse its position?</h2>
+        <p className="text-sm mt-1 max-w-2xl" style={{ color: '#6b7280' }}>
+          Each bar shows the percentage of the 15 questions where the model gave a different answer after that strategy was applied.
           A higher bar means the model was less consistent.
         </p>
       </div>
@@ -109,10 +110,10 @@ export default function ModelExplorer() {
               onClick={() => selectModel(m)}
               className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all duration-200"
               style={{
-                background:  isActive ? mi.bg     : 'white',
-                borderColor: isActive ? mi.border : '#e5e7eb',
-                color:       isActive ? mi.color  : '#6b7280',
-                boxShadow:   isActive ? `0 0 0 2px ${mi.border}` : 'none',
+                background:  isActive ? mi.color + '18' : 'rgba(255,255,255,0.04)',
+                borderColor: isActive ? mi.color        : '#1f2937',
+                color:       isActive ? mi.color        : '#6b7280',
+                boxShadow:   isActive ? `0 0 16px ${mi.color}33` : 'none',
               }}
             >
               <ModelLogo model={m} size={18} />
@@ -125,18 +126,18 @@ export default function ModelExplorer() {
       {/* Card */}
       <div
         key={active}
-        className="bg-white rounded-2xl border shadow-sm overflow-hidden animate-slide-up"
-        style={{ borderColor: info.border }}
+        className="rounded-2xl overflow-hidden animate-slide-up"
+        style={{ border: `1px solid ${info.color}33`, background: 'rgba(255,255,255,0.03)' }}
       >
         {/* Model header */}
-        <div className="px-6 pt-5 pb-4" style={{ background: info.bg }}>
+        <div className="px-6 pt-5 pb-4" style={{ background: info.color + '12', borderBottom: `1px solid ${info.color}22` }}>
           <div className="flex items-center gap-4 mb-2">
             <ModelLogo model={active} size={28} />
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: info.color + '20', color: info.color }}>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: info.color + '22', color: info.color }}>
               {info.tagline}
             </span>
           </div>
-          <p className="text-sm text-gray-600 mt-2 leading-relaxed max-w-2xl">{info.summary}</p>
+          <p className="text-sm mt-2 leading-relaxed max-w-2xl" style={{ color: '#9ca3af' }}>{info.summary}</p>
         </div>
 
         {/* Chart */}
@@ -144,7 +145,14 @@ export default function ModelExplorer() {
           <Plot
             key={chartKey}
             data={data}
-            layout={layout}
+            layout={{ ...layout,
+              font: { ...layout.font, color: '#9ca3af' },
+              xaxis: { ...layout.xaxis, tickfont: { size: 12, color: '#e5e7eb' }, linecolor: '#374151', gridcolor: 'transparent' },
+              yaxis: { ...layout.yaxis, tickfont: { size: 11, family: 'JetBrains Mono', color: '#6b7280' }, gridcolor: '#1f2937', zerolinecolor: '#374151' },
+              legend: { ...layout.legend, font: { size: 11, color: '#9ca3af' } },
+              hoverlabel: { bgcolor: '#111827', bordercolor: '#374151', font: { color: '#f9fafb', size: 12 } },
+              annotations: layout.annotations,
+            }}
             config={{ responsive: true, displayModeBar: false }}
             style={{ width: '100%' }}
             useResizeHandler
@@ -152,15 +160,16 @@ export default function ModelExplorer() {
         </div>
 
         {/* Reading guide */}
-        <div className="mx-6 mb-5 rounded-xl p-4 text-sm bg-gray-50 border border-gray-100 space-y-1">
-          <p className="font-medium text-gray-700">How to read this chart</p>
-          <p className="text-gray-500">
-            The y-axis shows what percentage of the 15 moral questions the model answered differently after that strategy was applied.
-            A 0% bar means the model held its position completely. A 100% bar means it reversed every single answer.
-            Green bars are the stabilizing strategies, which were meant to keep the model consistent. When those bars are tall, it means even the "fix" made things worse.
+        <div className="mx-6 mb-5 rounded-xl p-4 text-sm space-y-1" style={{ background: '#111827', border: '1px solid #1f2937' }}>
+          <p className="font-medium" style={{ color: '#e5e7eb' }}>How to read this chart</p>
+          <p style={{ color: '#6b7280' }}>
+            The y-axis shows what percentage of the 15 moral questions the model answered differently.
+            0% = held its position completely. 100% = reversed every single answer.
+            The two green bars are stabilizing strategies — meant to prevent reversals. When they are tall, the "fix" made things worse.
           </p>
         </div>
       </div>
+    </div>
     </section>
   );
 }

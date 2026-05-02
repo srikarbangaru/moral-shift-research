@@ -67,11 +67,12 @@ export default function CompareModels() {
   };
 
   return (
-    <section id="compare" className="max-w-5xl mx-auto px-6 py-10">
-      <div className="border-t border-gray-200 pt-10 mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Compare all models</p>
-        <h2 className="text-2xl font-bold text-gray-900">Which model shifted the most?</h2>
-        <p className="text-sm text-gray-500 mt-1">Compare shift rates across all four models and see whether stabilizing strategies actually helped.</p>
+    <section id="compare" style={{ background: "#0d0d18", borderTop: "1px solid #1f2937", borderBottom: "1px solid #1f2937" }}>
+      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="pt-10 mb-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#4b5563] mb-2">Compare all models</p>
+        <h2 className="text-2xl font-bold text-[#f9fafb]">Which model shifted the most?</h2>
+        <p className="text-sm text-[#6b7280] mt-1">Compare shift rates across all four models and see whether stabilizing strategies actually helped.</p>
       </div>
 
       {/* View toggle */}
@@ -92,14 +93,14 @@ export default function CompareModels() {
         ))}
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+      <div className="rounded-2xl border border-[#1f2937] bg-[rgba(255,255,255,0.03)] p-5">
         <div key={chartKey} className="animate-fade-in">
           {view === 'byStrategy' && (
             <Plot data={byStrategyData} layout={byStratLayout} config={{ responsive: true, displayModeBar: false }} style={{ width: '100%' }} useResizeHandler />
           )}
           {view === 'overall' && (
             <>
-              <p className="text-xs text-gray-400 mb-2 font-mono">Average shift rate across all 5 strategies</p>
+              <p className="text-xs text-[#4b5563] mb-2 font-mono">Average shift rate across all 5 strategies</p>
               <Plot data={overallData} layout={overallLayout} config={{ responsive: true, displayModeBar: false }} style={{ width: '100%' }} useResizeHandler />
             </>
           )}
@@ -117,13 +118,14 @@ export default function CompareModels() {
               <div className="flex items-center justify-center h-8 w-full mb-1">
                 <ModelLogo model={m} size={22} />
               </div>
-              {mi.logoType === 'icon' && <p className="text-sm font-semibold text-gray-700 mt-1">{m}</p>}
+              {mi.logoType === 'icon' && <p className="text-sm font-semibold text-[#e5e7eb] mt-1">{m}</p>}
               <p className="text-2xl font-bold mt-2" style={{ color: mi.color }}>{pct}%</p>
-              <p className="text-xs text-gray-400 mt-0.5">avg shift · #{rank}</p>
+              <p className="text-xs text-[#4b5563] mt-0.5">avg shift · #{rank}</p>
             </div>
           );
         })}
       </div>
+    </div>
     </section>
   );
 }

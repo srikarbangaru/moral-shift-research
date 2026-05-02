@@ -88,11 +88,12 @@ const scoreLayout = {
 
 export default function Findings() {
   return (
-    <section id="findings" className="max-w-5xl mx-auto px-6 py-10">
-      <div className="border-t border-gray-200 pt-10 mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Key findings</p>
-        <h2 className="text-2xl font-bold text-gray-900">What surprised us</h2>
-        <p className="text-sm text-gray-500 mt-1">
+    <section id="findings" style={{ background: "#0d0d18", borderTop: "1px solid #1f2937", borderBottom: "1px solid #1f2937" }}>
+      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="pt-10 mb-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#4b5563] mb-2">Key findings</p>
+        <h2 className="text-2xl font-bold text-[#f9fafb]">What surprised us</h2>
+        <p className="text-sm text-[#6b7280] mt-1">
           Four things we found that we did not expect going into this study.
         </p>
       </div>
@@ -102,22 +103,22 @@ export default function Findings() {
           <div key={f.number} className="rounded-2xl border p-5" style={{ background: f.bg, borderColor: f.border }}>
             <p className="text-3xl font-bold mb-2" style={{ color: f.color + '50' }}>{f.number}</p>
             <p className="text-sm font-semibold text-gray-800 mb-2">{f.title}</p>
-            <p className="text-sm text-gray-500 leading-relaxed">{f.body}</p>
+            <p className="text-sm text-[#6b7280] leading-relaxed">{f.body}</p>
           </div>
         ))}
       </div>
 
       {/* Score impact chart */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-        <h3 className="text-base font-semibold text-gray-900 mb-1">
+      <div className="rounded-2xl border border-[#1f2937] bg-[rgba(255,255,255,0.03)] p-5">
+        <h3 className="text-base font-semibold text-[#f9fafb] mb-1">
           Did any strategy preserve ChatGPT's overall moral score?
         </h3>
-        <p className="text-sm text-gray-500 mb-2">
+        <p className="text-sm text-[#6b7280] mb-2">
           Each bar shows ChatGPT's weighted moral consistency score after that strategy was applied.
           The dotted line is the original baseline score. Every strategy lowered it - some more than others.
           The differences are small in absolute terms, but consistent: there was no upward movement.
         </p>
-        <div className="flex gap-4 text-xs text-gray-400 mb-4 flex-wrap">
+        <div className="flex gap-4 text-xs text-[#4b5563] mb-4 flex-wrap">
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-indigo-500 inline-block" /> Baseline (original score)</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-400 inline-block" /> Pressure strategies</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-400 inline-block" /> Stabilizing strategies</span>
@@ -131,6 +132,7 @@ export default function Findings() {
           useResizeHandler
         />
       </div>
+    </div>
     </section>
   );
 }
