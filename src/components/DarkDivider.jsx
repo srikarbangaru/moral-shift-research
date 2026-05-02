@@ -1,9 +1,9 @@
 export default function DarkDivider() {
   const stats = [
-    { value: '100%', label: 'We found DeepSeek changed its answer on every single question under persuasion', color: '#f87171' },
-    { value: '47%',  label: 'We observed Claude shifting when we applied an ethical reminder - the strategy designed to prevent it', color: '#fbbf24' },
-    { value: '0',    label: 'We found zero strategies that fully preserved a model\'s baseline answers', color: '#a5b4fc' },
-    { value: '56%',  label: 'We measured Gemini shifting on over half of all questions across every strategy we tested', color: '#c4b5fd' },
+    { value: '15/15', label: 'DeepSeek reversed every single answer when told that experts disagreed with it', color: '#f87171' },
+    { value: '7/15',  label: 'Claude reversed answers under an Ethical Reminder - the strategy designed to prevent reversals', color: '#fbbf24' },
+    { value: '0',     label: 'Strategies that caused no reversals in any model - every approach triggered some change', color: '#a5b4fc' },
+    { value: '9/15',  label: 'Gemini reversed on average 9 of 15 questions, no matter which strategy we applied', color: '#c4b5fd' },
   ];
 
   return (
@@ -23,7 +23,7 @@ export default function DarkDivider() {
           What we found
         </p>
         <p className="text-center text-sm mb-10" style={{ color: '#6b7280' }}>
-          Four findings from our research that surprised us most.
+          Specific numbers from our results, expressed as questions reversed out of 15.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map(s => (
