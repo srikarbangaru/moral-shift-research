@@ -37,11 +37,11 @@ const layout = {
   bargap: 0.28,
   bargroupgap: 0.08,
   font: { family: 'Inter, sans-serif', size: 12, color: '#6b7280' },
-  xaxis: { tickfont: { size: 13, color: '#374151' }, linecolor: '#e5e7eb', gridcolor: 'transparent', fixedrange: true },
+  xaxis: { tickfont: { size: 13, color: '#e5e7eb' }, linecolor: '#374151', gridcolor: 'transparent', fixedrange: true },
   yaxis: {
     range: [0, 115], ticksuffix: '%',
     tickfont: { size: 11, family: 'JetBrains Mono', color: '#9ca3af' },
-    gridcolor: '#e5e7eb', linecolor: 'transparent', zerolinecolor: '#e5e7eb', fixedrange: true,
+    gridcolor: '#1f2937', linecolor: 'transparent', zerolinecolor: '#374151', fixedrange: true,
     title: { text: 'Avg shift rate', font: { size: 11, color: '#9ca3af' } },
   },
   legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: -0.22, font: { size: 11 }, bgcolor: 'transparent' },
@@ -56,7 +56,7 @@ export default function StabilizersSection() {
     <section id="stabilizers" style={{ background: "#0d0d18", borderTop: "1px solid #1f2937", borderBottom: "1px solid #1f2937" }}>
       <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="pt-10 mb-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#4b5563] mb-2">The paradox</p>
+        <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>The paradox</p>
         <h2 className="text-2xl font-bold text-[#f9fafb]">Do stabilizers actually work?</h2>
         <p className="text-sm text-[#6b7280] mt-1 max-w-2xl">
           We expected inducer strategies to cause shift and stabilizer strategies to prevent it.
@@ -67,17 +67,17 @@ export default function StabilizersSection() {
       {/* Key insight callout */}
       <div
         className="rounded-2xl p-5 mb-6 flex items-start gap-4"
-        style={{ background: 'linear-gradient(135deg, #fffbeb, #fef9c3)', border: '1px solid #fde68a' }}
+        style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.3)' }}
       >
         <span className="text-2xl shrink-0">⚠️</span>
         <div>
-          <p className="text-sm font-semibold text-amber-900 mb-1">
+          <p className="text-sm font-semibold mb-1" style={{ color: '#fcd34d' }}>
             Models changed their moral stance even with stabilizing strategies
           </p>
-          <p className="text-sm text-amber-700 leading-relaxed">
+          <p className="text-sm leading-relaxed" style={{ color: '#d97706' }}>
             The green bars below should ideally be near zero. They represent strategies specifically
             designed to keep models consistent. Instead, every model shows meaningful shift under
-            stabilizers too. For Gemini, the stabilizer average was <strong>57%</strong>, barely
+            stabilizers too. For Gemini, the stabilizer average was <strong style={{ color: '#fbbf24' }}>57%</strong>, barely
             lower than its inducer average.
           </p>
         </div>
@@ -102,25 +102,25 @@ export default function StabilizersSection() {
           const stbPct = Math.round(stabilizerAvg(m) * 100);
           const delta  = stbPct - indPct;
           return (
-            <div key={m} className="rounded-2xl border p-4" style={{ background: mi.bg, borderColor: mi.border }}>
+            <div key={m} className="rounded-2xl border p-4" style={{ background: 'rgba(255,255,255,0.04)', borderColor: mi.color + '44' }}>
               <div className="flex items-center justify-between mb-3">
                 <ModelLogo model={m} size={20} />
-                {mi.logoType === 'icon' && <span className="text-xs font-semibold text-[#9ca3af]">{m}</span>}
+                {mi.logoType === 'icon' && <span className="text-xs font-semibold" style={{ color: '#9ca3af' }}>{m}</span>}
               </div>
               <div className="space-y-2">
                 <div>
-                  <p className="text-xs text-[#4b5563] mb-0.5">Inducers avg</p>
-                  <p className="text-xl font-bold text-red-500">{indPct}%</p>
+                  <p className="text-xs mb-0.5" style={{ color: '#9ca3af' }}>Inducers avg</p>
+                  <p className="text-xl font-bold" style={{ color: '#f87171' }}>{indPct}%</p>
                 </div>
                 <div>
-                  <p className="text-xs text-[#4b5563] mb-0.5">Stabilizers avg</p>
-                  <p className="text-xl font-bold text-green-600">{stbPct}%</p>
+                  <p className="text-xs mb-0.5" style={{ color: '#9ca3af' }}>Stabilizers avg</p>
+                  <p className="text-xl font-bold" style={{ color: '#4ade80' }}>{stbPct}%</p>
                 </div>
                 <div
                   className="text-xs font-semibold px-2 py-1 rounded-full text-center"
                   style={{
-                    background: delta <= -10 ? '#dcfce7' : delta <= 0 ? '#fef9c3' : '#fef2f2',
-                    color:      delta <= -10 ? '#15803d' : delta <= 0 ? '#92400e' : '#b91c1c',
+                    background: delta <= -10 ? 'rgba(74,222,128,0.15)' : delta <= 0 ? 'rgba(251,191,36,0.15)' : 'rgba(248,113,113,0.15)',
+                    color:      delta <= -10 ? '#4ade80'               : delta <= 0 ? '#fbbf24'               : '#f87171',
                   }}
                 >
                   {delta > 0 ? `+${delta}%` : `${delta}%`} vs inducers

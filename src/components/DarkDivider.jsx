@@ -19,10 +19,10 @@ export default function DarkDivider() {
         }}
       />
       <div className="relative max-w-5xl mx-auto px-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-center mb-2" style={{ color: '#4b5563' }}>
+        <p className="text-xs font-semibold uppercase tracking-widest text-center mb-2" style={{ color: '#a5b4fc' }}>
           What we found
         </p>
-        <p className="text-center text-sm mb-10" style={{ color: '#6b7280' }}>
+        <p className="text-center text-sm mb-10" style={{ color: '#9ca3af' }}>
           Specific numbers from our results, expressed as questions reversed out of 15.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

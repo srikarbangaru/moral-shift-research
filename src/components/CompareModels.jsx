@@ -35,7 +35,7 @@ export default function CompareModels() {
     marker: { color: sorted.map(m => modelInfo[m].color) },
     text: sorted.map(m => `${Math.round(overallDrift[m] * 100)}%`),
     textposition: 'outside',
-    textfont: { size: 13, family: 'JetBrains Mono', color: '#6b7280' },
+    textfont: { size: 13, family: 'JetBrains Mono', color: '#e5e7eb' },
     cliponaxis: false,
     hovertemplate: '<b>%{y}</b><br>Avg shift rate: <b>%{x}%</b><extra></extra>',
   }];
@@ -51,17 +51,17 @@ export default function CompareModels() {
   const byStratLayout = {
     ...sharedLayout,
     barmode: 'group', bargap: 0.25, bargroupgap: 0.08,
-    xaxis: { tickfont: { size: 11, color: '#374151' }, linecolor: '#e5e7eb', gridcolor: 'transparent', fixedrange: true },
-    yaxis: { range: [0, 115], ticksuffix: '%', tickfont: { size: 10, family: 'JetBrains Mono', color: '#9ca3af' }, gridcolor: '#f3f4f6', linecolor: 'transparent', zerolinecolor: '#e5e7eb', fixedrange: true },
-    legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: -0.2, font: { size: 12 }, bgcolor: 'transparent' },
+    xaxis: { tickfont: { size: 11, color: '#e5e7eb' }, linecolor: '#374151', gridcolor: 'transparent', fixedrange: true },
+    yaxis: { range: [0, 115], ticksuffix: '%', tickfont: { size: 10, family: 'JetBrains Mono', color: '#9ca3af' }, gridcolor: '#1f2937', linecolor: 'transparent', zerolinecolor: '#374151', fixedrange: true },
+    legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: -0.2, font: { size: 12, color: '#e5e7eb' }, bgcolor: 'transparent' },
     margin: { l: 44, r: 20, t: 10, b: 80 },
     height: 340,
   };
 
   const overallLayout = {
     ...sharedLayout,
-    xaxis: { range: [0, 110], ticksuffix: '%', tickfont: { size: 10, family: 'JetBrains Mono', color: '#9ca3af' }, gridcolor: '#f3f4f6', linecolor: 'transparent', zerolinecolor: '#e5e7eb', fixedrange: true },
-    yaxis: { tickfont: { size: 13, color: '#374151' }, linecolor: 'transparent', gridcolor: 'transparent', fixedrange: true, automargin: true },
+    xaxis: { range: [0, 110], ticksuffix: '%', tickfont: { size: 10, family: 'JetBrains Mono', color: '#9ca3af' }, gridcolor: '#1f2937', linecolor: 'transparent', zerolinecolor: '#374151', fixedrange: true },
+    yaxis: { tickfont: { size: 13, color: '#e5e7eb' }, linecolor: 'transparent', gridcolor: 'transparent', fixedrange: true, automargin: true },
     margin: { l: 20, r: 70, t: 10, b: 40 },
     height: 260,
   };
@@ -70,9 +70,9 @@ export default function CompareModels() {
     <section id="compare" style={{ background: "#0d0d18", borderTop: "1px solid #1f2937", borderBottom: "1px solid #1f2937" }}>
       <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="pt-10 mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#4b5563] mb-2">Compare all models</p>
+        <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>Compare all models</p>
         <h2 className="text-2xl font-bold text-[#f9fafb]">Which model shifted the most?</h2>
-        <p className="text-sm text-[#6b7280] mt-1">Compare shift rates across all four models and see whether stabilizing strategies actually helped.</p>
+        <p className="text-sm mt-1" style={{ color: '#9ca3af' }}>Compare shift rates across all four models and see whether stabilizing strategies actually helped.</p>
       </div>
 
       {/* View toggle */}
@@ -83,9 +83,9 @@ export default function CompareModels() {
             onClick={() => switchView(o.id)}
             className="px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-200"
             style={{
-              background:  view === o.id ? '#1f2937' : 'white',
-              borderColor: view === o.id ? '#1f2937' : '#e5e7eb',
-              color:       view === o.id ? 'white'   : '#6b7280',
+              background:  view === o.id ? '#6366f1' : 'rgba(255,255,255,0.05)',
+              borderColor: view === o.id ? '#6366f1' : '#374151',
+              color:       view === o.id ? 'white'   : '#9ca3af',
             }}
           >
             {o.label}
@@ -114,13 +114,13 @@ export default function CompareModels() {
           const pct  = Math.round(overallDrift[m] * 100);
           const rank = [...MODELS].sort((a, b) => overallDrift[b] - overallDrift[a]).indexOf(m) + 1;
           return (
-            <div key={m} className="rounded-xl border p-4 flex flex-col items-center justify-center text-center" style={{ background: mi.bg, borderColor: mi.border }}>
+            <div key={m} className="rounded-xl border p-4 flex flex-col items-center justify-center text-center" style={{ background: 'rgba(255,255,255,0.04)', borderColor: mi.color + '44' }}>
               <div className="flex items-center justify-center h-8 w-full mb-1">
                 <ModelLogo model={m} size={22} />
               </div>
               {mi.logoType === 'icon' && <p className="text-sm font-semibold text-[#e5e7eb] mt-1">{m}</p>}
               <p className="text-2xl font-bold mt-2" style={{ color: mi.color }}>{pct}%</p>
-              <p className="text-xs text-[#4b5563] mt-0.5">avg shift · #{rank}</p>
+              <p className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>avg shift · #{rank}</p>
             </div>
           );
         })}

@@ -6,33 +6,33 @@ const FINDING_CARDS = [
     number: '01',
     title: 'Saying "are you sure?" was enough',
     body: 'Our persuasion strategy simply told the model that many experts disagreed with its position. That single prompt caused DeepSeek to reverse every one of its 15 answers. ChatGPT reversed 4 out of 15. No model was immune.',
-    color: '#3b82f6',
-    bg: '#eff6ff',
-    border: '#bfdbfe',
+    color: '#60a5fa',
+    bg: 'rgba(59,130,246,0.08)',
+    border: 'rgba(59,130,246,0.25)',
   },
   {
     number: '02',
     title: 'The ethical reminder backfired badly',
     body: 'We designed the Ethical Reminder strategy to keep models grounded by asking them to reason carefully before answering. Instead, it caused Claude to reverse 47% of its positions - more than persuasion did. It had the opposite of its intended effect.',
-    color: '#f59e0b',
-    bg: '#fffbeb',
-    border: '#fde68a',
+    color: '#fbbf24',
+    bg: 'rgba(245,158,11,0.08)',
+    border: 'rgba(245,158,11,0.25)',
   },
   {
     number: '03',
     title: 'One moral dimension held firm across the board',
     body: 'Questions about personal liberty and freedom from coercion showed 0% reversal for ChatGPT across all five strategies tested. This was the only moral foundation that appeared genuinely stable under pressure.',
-    color: '#10b981',
-    bg: '#f0fdf4',
-    border: '#bbf7d0',
+    color: '#34d399',
+    bg: 'rgba(16,185,129,0.08)',
+    border: 'rgba(16,185,129,0.25)',
   },
   {
     number: '04',
     title: 'Models argued confidently for both sides',
     body: 'When a model reversed its position, it did not hedge or express uncertainty. It gave a well-reasoned explanation for whichever answer it was currently giving - the same confident tone before and after the reversal. This suggests the reasoning was post-hoc, not principled.',
-    color: '#8b5cf6',
-    bg: '#f5f3ff',
-    border: '#ddd6fe',
+    color: '#a78bfa',
+    bg: 'rgba(139,92,246,0.08)',
+    border: 'rgba(139,92,246,0.25)',
   },
 ];
 
@@ -65,14 +65,14 @@ const scoreLayout = {
   xaxis: {
     range: [17.5, 19.0],
     tickfont: { size: 10, family: 'JetBrains Mono', color: '#9ca3af' },
-    gridcolor: '#f3f4f6',
+    gridcolor: '#1f2937',
     linecolor: 'transparent',
     zerolinecolor: 'transparent',
     fixedrange: true,
     title: { text: 'Weighted moral consistency score (out of 22.28)', font: { size: 11, color: '#9ca3af' } },
   },
   yaxis: {
-    tickfont: { size: 12, color: '#374151' },
+    tickfont: { size: 12, color: '#e5e7eb' },
     linecolor: 'transparent',
     gridcolor: 'transparent',
     automargin: true,
@@ -91,7 +91,7 @@ export default function Findings() {
     <section id="findings" style={{ background: "#0d0d18", borderTop: "1px solid #1f2937", borderBottom: "1px solid #1f2937" }}>
       <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="pt-10 mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#4b5563] mb-2">Key findings</p>
+        <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>Key findings</p>
         <h2 className="text-2xl font-bold text-[#f9fafb]">What surprised us</h2>
         <p className="text-sm text-[#6b7280] mt-1">
           Four things we found that we did not expect going into this study.
@@ -101,9 +101,9 @@ export default function Findings() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
         {FINDING_CARDS.map(f => (
           <div key={f.number} className="rounded-2xl border p-5" style={{ background: f.bg, borderColor: f.border }}>
-            <p className="text-3xl font-bold mb-2" style={{ color: f.color + '50' }}>{f.number}</p>
-            <p className="text-sm font-semibold text-gray-800 mb-2">{f.title}</p>
-            <p className="text-sm text-[#6b7280] leading-relaxed">{f.body}</p>
+            <p className="text-3xl font-bold mb-2 font-mono" style={{ color: f.color + '80' }}>{f.number}</p>
+            <p className="text-sm font-semibold mb-2" style={{ color: '#f9fafb' }}>{f.title}</p>
+            <p className="text-sm leading-relaxed" style={{ color: '#9ca3af' }}>{f.body}</p>
           </div>
         ))}
       </div>
@@ -118,7 +118,7 @@ export default function Findings() {
           The dotted line is the original baseline score. Every strategy lowered it - some more than others.
           The differences are small in absolute terms, but consistent: there was no upward movement.
         </p>
-        <div className="flex gap-4 text-xs text-[#4b5563] mb-4 flex-wrap">
+        <div className="flex gap-4 text-xs mb-4 flex-wrap" style={{ color: '#9ca3af' }}>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-indigo-500 inline-block" /> Baseline (original score)</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-400 inline-block" /> Pressure strategies</span>
           <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-400 inline-block" /> Stabilizing strategies</span>

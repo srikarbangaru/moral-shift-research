@@ -1,27 +1,28 @@
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import ModelExplorer from './components/ModelExplorer';
-import ScatterSection from './components/ScatterSection';
-import CompareModels from './components/CompareModels';
-import StabilizersSection from './components/StabilizersSection';
-import DarkDivider from './components/DarkDivider';
-import Findings from './components/Findings';
 import Footer from './components/Footer';
+import HomePage     from './pages/HomePage';
+import ExplorePage  from './pages/ExplorePage';
+import QuestionsPage from './pages/QuestionsPage';
+import ComparePage  from './pages/ComparePage';
+import FindingsPage from './pages/FindingsPage';
 
 export default function App() {
   return (
-    <div className="min-h-screen" style={{ background: '#07070f' }}>
-      <Header />
-      <main>
-        <HeroSection />
-        <ModelExplorer />
-        <ScatterSection />
-        <CompareModels />
-        <StabilizersSection />
-        <DarkDivider />
-        <Findings />
-      </main>
-      <Footer />
-    </div>
+    <HashRouter>
+      <div className="min-h-screen flex flex-col" style={{ background: '#07070f' }}>
+        <Header />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/"          element={<HomePage />} />
+            <Route path="/explore"   element={<ExplorePage />} />
+            <Route path="/questions" element={<QuestionsPage />} />
+            <Route path="/compare"   element={<ComparePage />} />
+            <Route path="/findings"  element={<FindingsPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </HashRouter>
   );
 }

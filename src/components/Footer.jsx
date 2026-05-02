@@ -19,12 +19,12 @@ export default function Footer() {
             </div>
             <p className="text-xs mb-1" style={{ color: '#6b7280' }}>AI & Humanity · CS 4501 · 2026</p>
             <p className="text-xs" style={{ color: '#6b7280' }}>ChatGPT · Claude · DeepSeek · Gemini</p>
-            <p className="text-xs mt-4" style={{ color: '#374151' }}>Built with React, Vite & Plotly.js</p>
+            <p className="text-xs mt-4" style={{ color: '#4b5563' }}>Built with React, Vite & Plotly.js</p>
           </div>
 
           {/* Right: team */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#4b5563' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#6366f1' }}>
               The Amber Team
             </p>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-1.5">
@@ -36,7 +36,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t pt-6 text-center" style={{ borderColor: '#1f2937' }}>
-          <p className="text-xs" style={{ color: '#374151' }}>© 2026 The Amber Team · University of Virginia</p>
+          <p className="text-xs" style={{ color: '#6b7280' }}>© 2026 The Amber Team · University of Virginia</p>
         </div>
       </div>
     </footer>

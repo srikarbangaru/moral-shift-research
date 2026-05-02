@@ -28,7 +28,7 @@ export default function ModelExplorer() {
       marker: { color: info.color + 'cc', line: { color: info.color, width: 1.5 } },
       text: inducerIdx.map(i => `${questionCount(driftRates[active][i])} of 15 questions reversed`),
       textposition: 'outside',
-      textfont: { size: 10, color: '#6b7280', family: 'Inter' },
+      textfont: { size: 10, color: '#9ca3af', family: 'Inter' },
       cliponaxis: false,
       showlegend: true,
       hovertemplate: '<b>%{x}</b><br>Reversed on <b>%{y}%</b> of questions<br>(%{text})<extra></extra>',
@@ -42,7 +42,7 @@ export default function ModelExplorer() {
       marker: { color: '#16a34acc', line: { color: '#15803d', width: 2 } },
       text: stabilizerIdx.map(i => `${questionCount(driftRates[active][i])} of 15 questions reversed`),
       textposition: 'outside',
-      textfont: { size: 10, color: '#15803d', family: 'Inter' },
+      textfont: { size: 10, color: '#4ade80', family: 'Inter' },
       cliponaxis: false,
       showlegend: true,
       hovertemplate: '<b>%{x}</b><br>Reversed on <b>%{y}%</b> of questions<br>(%{text})<extra></extra>',
@@ -82,8 +82,8 @@ export default function ModelExplorer() {
     transition: { duration: 400, easing: 'cubic-in-out' },
     hoverlabel: { bgcolor: '#1f2937', bordercolor: '#374151', font: { color: '#f9fafb', size: 12 } },
     annotations: [
-      { x: STRATEGIES[3], y: -16, text: 'STABILIZER', showarrow: false, font: { size: 9, color: '#15803d', family: 'JetBrains Mono' }, xref: 'x', yref: 'y' },
-      { x: STRATEGIES[4], y: -16, text: 'STABILIZER', showarrow: false, font: { size: 9, color: '#15803d', family: 'JetBrains Mono' }, xref: 'x', yref: 'y' },
+      { x: STRATEGIES[3], y: -16, text: 'STABILIZER', showarrow: false, font: { size: 9, color: '#4ade80', family: 'JetBrains Mono' }, xref: 'x', yref: 'y' },
+      { x: STRATEGIES[4], y: -16, text: 'STABILIZER', showarrow: false, font: { size: 9, color: '#4ade80', family: 'JetBrains Mono' }, xref: 'x', yref: 'y' },
     ],
   };
 

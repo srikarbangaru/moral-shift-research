@@ -95,8 +95,8 @@ export default function ScatterSection() {
       },
     ],
     annotations: [
-      { x: 1, y: 16.4, text: '← Pressure strategies', showarrow: false, font: { size: 10, color: '#6b7280' }, xref: 'x', yref: 'y', xanchor: 'center' },
-      { x: 3.5, y: 16.4, text: 'Stabilizers →', showarrow: false, font: { size: 10, color: '#16a34a' }, xref: 'x', yref: 'y', xanchor: 'center' },
+      { x: 1, y: 16.4, text: '← Pressure strategies', showarrow: false, font: { size: 10, color: '#9ca3af' }, xref: 'x', yref: 'y', xanchor: 'center' },
+      { x: 3.5, y: 16.4, text: 'Stabilizers →', showarrow: false, font: { size: 10, color: '#4ade80' }, xref: 'x', yref: 'y', xanchor: 'center' },
     ],
   };
 
@@ -152,11 +152,11 @@ export default function ScatterSection() {
                     boxShadow:   isActive ? `0 0 20px ${mi.color}33` : 'none',
                   }}
                 >
-                  <span className="font-mono text-lg font-bold" style={{ color: isActive ? mi.color : '#374151' }}>
+                  <span className="font-mono text-lg font-bold" style={{ color: isActive ? mi.color : '#6b7280' }}>
                     {total}
                   </span>
                   <span>reversals</span>
-                  <span style={{ color: isActive ? mi.color + 'aa' : '#374151', fontSize: '0.7rem' }}>— {m}</span>
+                  <span style={{ color: isActive ? mi.color + 'aa' : '#9ca3af', fontSize: '0.7rem' }}>— {m}</span>
                 </button>
               );
             })}
@@ -213,7 +213,7 @@ export default function ScatterSection() {
                   </div>
 
                   {/* Question text */}
-                  <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#4b5563' }}>Question</p>
+                  <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6b7280' }}>Question</p>
                   <p className="text-sm leading-relaxed mb-6" style={{ color: '#d1d5db', whiteSpace: 'pre-line' }}>
                     {selectedQ.text}
                   </p>
