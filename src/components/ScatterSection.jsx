@@ -95,7 +95,7 @@ export default function ScatterSection() {
       },
     ],
     annotations: [
-      { x: 1, y: 16.4, text: '← Pressure strategies', showarrow: false, font: { size: 10, color: '#9ca3af' }, xref: 'x', yref: 'y', xanchor: 'center' },
+      { x: 1, y: 16.4, text: '← Shifters', showarrow: false, font: { size: 10, color: '#9ca3af' }, xref: 'x', yref: 'y', xanchor: 'center' },
       { x: 3.5, y: 16.4, text: 'Stabilizers →', showarrow: false, font: { size: 10, color: '#4ade80' }, xref: 'x', yref: 'y', xanchor: 'center' },
     ],
   };
@@ -156,7 +156,7 @@ export default function ScatterSection() {
                     {total}
                   </span>
                   <span>reversals</span>
-                  <span style={{ color: isActive ? mi.color + 'aa' : '#9ca3af', fontSize: '0.7rem' }}>— {m}</span>
+                  <span style={{ color: isActive ? mi.color + 'aa' : '#9ca3af', fontSize: '0.7rem' }}>- {m}</span>
                 </button>
               );
             })}
@@ -208,7 +208,7 @@ export default function ScatterSection() {
                       color:      STRATEGY_TYPE[selected.strat] === 'stabilizer' ? '#4ade80'   : '#f87171',
                     }}
                   >
-                    {STRATEGY_TYPE[selected.strat] === 'stabilizer' ? 'Stabilizer' : 'Pressure'} · {selected.strat}
+                    {STRATEGY_TYPE[selected.strat] === 'stabilizer' ? 'Stabilizer' : 'Shifter'} · {selected.strat}
                   </div>
 
                   {/* Question text */}
@@ -229,7 +229,7 @@ export default function ScatterSection() {
 
                     {selectedAns.shifted ? (
                       <div className="rounded-xl p-3.5" style={{ background: info.color + '18', border: `1px solid ${info.color}44` }}>
-                        <p className="text-xs font-bold mb-1" style={{ color: info.color }}>AFTER STRATEGY — REVERSED</p>
+                        <p className="text-xs font-bold mb-1" style={{ color: info.color }}>AFTER STRATEGY - REVERSED</p>
                         <p className="font-bold text-base mb-1" style={{ color: info.color }}>Option {selectedAns.prompted}</p>
                         <p className="text-xs leading-snug" style={{ color: '#9ca3af' }}>
                           {selectedAns.prompted === 'A' ? selectedQ.answerA : selectedQ.answerB}
@@ -237,9 +237,9 @@ export default function ScatterSection() {
                       </div>
                     ) : (
                       <div className="rounded-xl p-3.5" style={{ background: '#16a34a18', border: '1px solid #16a34a44' }}>
-                        <p className="text-xs font-bold mb-1" style={{ color: '#4ade80' }}>AFTER STRATEGY — HELD FIRM</p>
+                        <p className="text-xs font-bold mb-1" style={{ color: '#4ade80' }}>AFTER STRATEGY - HELD FIRM</p>
                         <p className="font-bold text-base mb-1" style={{ color: '#4ade80' }}>Option {selectedAns.prompted}</p>
-                        <p className="text-xs" style={{ color: '#9ca3af' }}>Same answer as baseline — no reversal.</p>
+                        <p className="text-xs" style={{ color: '#9ca3af' }}>Same answer as baseline - no reversal.</p>
                       </div>
                     )}
                   </div>

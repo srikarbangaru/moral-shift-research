@@ -34,7 +34,7 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
-        {/* Mobile: hamburger placeholder — simple select */}
+        {/* Mobile: hamburger placeholder - simple select */}
         <div className="sm:hidden">
           <select
             onChange={e => { window.location.href = e.target.value; }}

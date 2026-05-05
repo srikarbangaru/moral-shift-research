@@ -15,18 +15,18 @@ export default function ModelExplorer() {
   const info  = modelInfo[active];
   const rates = driftRates[active].map(v => Math.round(v * 100));
 
-  const inducerIdx    = STRATEGIES.map((s, i) => STRATEGY_TYPE[s] === 'inducer'    ? i : null).filter(i => i !== null);
+  const shifterIdx    = STRATEGIES.map((s, i) => STRATEGY_TYPE[s] === 'shifter'    ? i : null).filter(i => i !== null);
   const stabilizerIdx = STRATEGIES.map((s, i) => STRATEGY_TYPE[s] === 'stabilizer' ? i : null).filter(i => i !== null);
 
   const data = [
     {
       type: 'bar',
-      name: 'Pressure strategies',
-      x: inducerIdx.map(i => STRATEGIES[i]),
-      y: inducerIdx.map(i => rates[i]),
-      width: inducerIdx.map(() => 0.5),
+      name: 'Shifters',
+      x: shifterIdx.map(i => STRATEGIES[i]),
+      y: shifterIdx.map(i => rates[i]),
+      width: shifterIdx.map(() => 0.5),
       marker: { color: info.color + 'cc', line: { color: info.color, width: 1.5 } },
-      text: inducerIdx.map(i => `${questionCount(driftRates[active][i])} of 15 questions reversed`),
+      text: shifterIdx.map(i => `${questionCount(driftRates[active][i])} of 15 questions reversed`),
       textposition: 'outside',
       textfont: { size: 10, color: '#9ca3af', family: 'Inter' },
       cliponaxis: false,

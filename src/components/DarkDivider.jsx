@@ -21,7 +21,7 @@ export default function DarkDivider() {
     {
       value: '2 clusters',
       label: 'Stable vs. unstable',
-      sub: 'ChatGPT + Claude (8–25% shift) vs. DeepSeek + Gemini (32–56% shift) — two distinct behavioral archetypes',
+      sub: 'ChatGPT + Claude (8-25% shift) vs. DeepSeek + Gemini (32-56% shift) - two distinct behavioral archetypes',
       color: '#34d399',
     },
   ];

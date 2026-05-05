@@ -11,9 +11,9 @@ export const STRATEGIES = [
 ];
 
 export const STRATEGY_TYPE = {
-  'Persuasion':        'inducer',
-  'Role Prompting':    'inducer',
-  'Emotional Framing': 'inducer',
+  'Persuasion':        'shifter',
+  'Role Prompting':    'shifter',
+  'Emotional Framing': 'shifter',
   'Ethical Reminder':  'stabilizer',
   'Self-Consistency':  'stabilizer',
 };
@@ -36,18 +36,18 @@ export const overallDrift = {
 // Weighted moral score (ChatGPT only, from resulting scores.xlsx)
 export const weightedScores = [
   { label: 'Baseline',          value: 18.52, type: 'baseline' },
-  { label: 'Emotional Framing', value: 17.92, type: 'inducer'   },
+  { label: 'Emotional Framing', value: 17.92, type: 'shifter'   },
   { label: 'Self-Consistency',  value: 17.88, type: 'stabilizer'},
-  { label: 'Persuasion',        value: 17.72, type: 'inducer'   },
-  { label: 'Role Prompting',    value: 17.72, type: 'inducer'   },
+  { label: 'Persuasion',        value: 17.72, type: 'shifter'   },
+  { label: 'Role Prompting',    value: 17.72, type: 'shifter'   },
   { label: 'Ethical Reminder',  value: 17.72, type: 'stabilizer'},
 ];
 
 // Key stats for hero
 export const keyStats = [
   { value: '300', label: 'Total Trials',                    note: '15 questions x 5 strategies x 4 models, each human-reviewed' },
-  { value: '8%',  label: 'ChatGPT Shift Rate',              note: 'Most stable — heavily RLHF-aligned to resist over-updating' },
-  { value: '56%', label: 'Gemini Shift Rate',               note: 'Least stable — optimizes for helpfulness over consistency' },
+  { value: '8%',  label: 'ChatGPT Shift Rate',              note: 'Most stable - heavily RLHF-aligned to resist over-updating' },
+  { value: '56%', label: 'Gemini Shift Rate',               note: 'Least stable - optimizes for helpfulness over consistency' },
   { value: '0',   label: 'Strategies That Caused No Shift', note: 'Every strategy triggered reversals in at least one model' },
 ];
 
@@ -192,30 +192,30 @@ export const answersData = {
   },
 };
 
-// Model display info — colors match slide presentation
+// Model display info - colors match slide presentation
 export const modelInfo = {
   ChatGPT: {
     color: '#d1d5db', bg: '#eff6ff', border: '#bfdbfe',
     logo: '/logos/chatgpt.svg', logoType: 'icon',
-    tagline: 'Most Stable — 8% shift rate',
-    summary: 'ChatGPT is most stable because it is heavily RLHF-aligned to avoid contradicting itself. It reversed 0 answers under Emotional Framing and Self-Consistency. Under persuasion it reversed 4 of 15 — it responds to authority-based pressure more than emotional framing.',
+    tagline: 'Most Stable - 8% shift rate',
+    summary: 'ChatGPT is most stable because it is heavily RLHF-aligned to avoid contradicting itself. It reversed 0 answers under Emotional Framing and Self-Consistency. Under persuasion it reversed 4 of 15 - it responds to authority-based pressure more than emotional framing.',
   },
   Claude: {
     color: '#f97316', bg: '#fffbeb', border: '#fde68a',
     logo: '/logos/claude.svg', logoType: 'wordmark',
-    tagline: 'Moderately Stable — 25% shift rate',
-    summary: 'Claude is stable except when prompts invoke moral authority. The Ethical Reminder, which applies the UDHR, caused 7 of 15 reversals — more than persuasion. Its Constitutional AI training treats moral authority anchors as new reasoning input, not stabilizers.',
+    tagline: 'Moderately Stable - 25% shift rate',
+    summary: 'Claude is stable except when prompts invoke moral authority. The Ethical Reminder, which applies the UDHR, caused 7 of 15 reversals - more than persuasion. Its Constitutional AI training treats moral authority anchors as new reasoning input, not stabilizers.',
   },
   DeepSeek: {
     color: '#4d6bfe', bg: '#fef2f2', border: '#fecaca',
     logo: '/logos/deepseek.svg', logoType: 'wordmark',
-    tagline: 'Inconsistent — 32% shift rate',
-    summary: 'DeepSeek reversed all 15 answers under persuasion but held firm under Role Prompting and Self-Consistency with 0 reversals. It has a strong deference to stated expert consensus — but its self-consistency and role anchors are robust. It is specifically vulnerable to authority-style argument.',
+    tagline: 'Inconsistent - 32% shift rate',
+    summary: 'DeepSeek reversed all 15 answers under persuasion but held firm under Role Prompting and Self-Consistency with 0 reversals. It has a strong deference to stated expert consensus - but its self-consistency and role anchors are robust. It is specifically vulnerable to authority-style argument.',
   },
   Gemini: {
     color: '#34a853', bg: '#f5f3ff', border: '#ddd6fe',
     logo: '/logos/gemini.svg', logoType: 'wordmark',
-    tagline: 'Least Stable — 56% shift rate',
-    summary: 'Gemini optimizes for helpfulness, not consistency — it tries to adapt to every prompt. It reversed 8 or 9 of 15 answers under every strategy including both stabilizers. Its 60% Self-Consistency drift suggests it has no stable internal model to refer back to at all.',
+    tagline: 'Least Stable - 56% shift rate',
+    summary: 'Gemini optimizes for helpfulness, not consistency - it tries to adapt to every prompt. It reversed 8 or 9 of 15 answers under every strategy including both stabilizers. Its 60% Self-Consistency drift suggests it has no stable internal model to refer back to at all.',
   },
 };

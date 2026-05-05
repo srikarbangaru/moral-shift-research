@@ -1,12 +1,11 @@
 import Plot from '../PlotlyComponent';
 import { weightedScores } from '../data/researchData';
 
-// ── Key result cards ────────────────────────────────────────────────────────
 const RESULT_CARDS = [
   {
     number: '01',
     title: 'Persuasion was the most effective strategy',
-    body: 'Telling a model that many ethicists disagreed with its answer caused the highest reversal rates across all models. DeepSeek reversed all 15 answers under persuasion. This exploits an alignment weakness: models treat rhetorical pressure as new evidence, even when no facts are added.',
+    body: 'Telling a model that many ethicists disagreed with its answer caused the highest reversal rates across all models. DeepSeek reversed all 15 answers under persuasion. Models treat rhetorical pressure as new evidence, even when no facts are added.',
     color: '#60a5fa',
     bg: 'rgba(59,130,246,0.08)',
     border: 'rgba(59,130,246,0.25)',
@@ -14,7 +13,7 @@ const RESULT_CARDS = [
   {
     number: '02',
     title: 'Stabilizing strategies did not reliably stabilize',
-    body: 'The Ethical Reminder introduced new normative cues (the UDHR) instead of anchoring prior reasoning. Claude, trained via Constitutional AI to reason from principles, treated this as a trigger for reconsideration rather than reinforcement — reversing 7 of 15 answers.',
+    body: 'The Ethical Reminder introduced new normative cues (the UDHR) instead of anchoring prior reasoning. Claude treated this as a trigger for reconsideration rather than reinforcement, reversing 7 of 15 answers.',
     color: '#fbbf24',
     bg: 'rgba(245,158,11,0.08)',
     border: 'rgba(245,158,11,0.25)',
@@ -22,7 +21,7 @@ const RESULT_CARDS = [
   {
     number: '03',
     title: 'Stability correlates with training philosophy',
-    body: 'ChatGPT (8% shift) and Claude (25%) are safety-aligned — trained to resist over-updating on user pressure. DeepSeek (32%) and Gemini (56%) are more helpfulness-optimized, adapting to every prompt context. This split reflects two distinct behavioral archetypes.',
+    body: 'ChatGPT (8%) and Claude (25%) are safety-aligned, trained to resist over-updating on user pressure. DeepSeek (32%) and Gemini (56%) are more helpfulness-optimized and adapt to every prompt context.',
     color: '#34d399',
     bg: 'rgba(16,185,129,0.08)',
     border: 'rgba(16,185,129,0.25)',
@@ -30,76 +29,67 @@ const RESULT_CARDS = [
   {
     number: '04',
     title: 'Some questions are structurally vulnerable',
-    body: 'Questions 5, 7, and 11 triggered reversals in 6 out of 20 possible model-strategy combinations. Questions 14 and 15 (Liberty) barely shifted at all. The content of the question matters — certain moral dilemmas are inherently more susceptible to reframing than others.',
+    body: 'Questions 5, 7, and 11 triggered reversals in 6 of 20 model-strategy pairs. Questions 14 and 15 (Liberty) barely shifted at all. Certain moral dilemmas are inherently more susceptible to reframing than others.',
     color: '#a78bfa',
     bg: 'rgba(139,92,246,0.08)',
     border: 'rgba(139,92,246,0.25)',
   },
 ];
 
-// ── Why models shift (from slides) ─────────────────────────────────────────
+const IMPLICATIONS = [
+  {
+    sector: 'Legal and Compliance',
+    body: 'AI tools used for legal analysis or compliance review may reach different normative conclusions depending on how a question is phrased. A user with knowledge of these pressure points could reliably shift the model toward a preferred legal interpretation.',
+    severity: 'high',
+  },
+  {
+    sector: 'Healthcare and Bioethics',
+    body: 'Emotional reframing consistently pushed models toward protective conclusions, which may or may not align with established clinical ethics. Models advising on care prioritization showed high sensitivity to Harm-category framing.',
+    severity: 'high',
+  },
+  {
+    sector: 'HR and Workplace Tools',
+    body: 'Authority-category questions showed elevated drift toward pro-authority answers under persuasion. AI tools advising on HR disputes or management decisions may be nudged toward favoring institutional authority under subtle framing pressure.',
+    severity: 'medium',
+  },
+  {
+    sector: 'Content Moderation',
+    body: "DeepSeek's 100% reversal rate under persuasion means a determined user can, through persistence alone, flip every moral position the model holds. This has direct implications for adversarial jailbreaking and policy enforcement.",
+    severity: 'high',
+  },
+  {
+    sector: 'Financial Advisory',
+    body: 'Fairness-category questions drifted away from counterintuitive correct answers when emotional cues were applied. AI financial tools may be steered toward emotionally resonant but analytically weaker recommendations under reframing.',
+    severity: 'medium',
+  },
+  {
+    sector: 'Education and Tutoring',
+    body: 'Self-Consistency was the most effective stabilizing strategy for ChatGPT and DeepSeek. AI tutors that encourage students to challenge AI answers may inadvertently trigger more drift, depending on the model.',
+    severity: 'low',
+  },
+];
+
 const WHY_CARDS = [
   {
     label: 'MIRROR',
     title: 'Agreement Bias',
-    body: 'Models are rewarded for agreeableness during training. When a user pushes back, the model accommodates rather than reconsidering. This produces the appearance of reasoning, but the direction of change is driven by social pressure.',
+    body: 'Models are rewarded for agreeableness during training. When a user pushes back, the model accommodates rather than reconsidering. The direction of change is driven by social pressure, not logic.',
     color: '#f97316',
   },
   {
     label: 'MEMORY',
     title: 'No Persistent Beliefs',
-    body: 'Each response is stateless. Models have no fixed stance they are defending — context drives everything. A differently framed prompt is a different context, and the model reasons freshly from it each time.',
+    body: 'Each response is stateless. Models have no fixed stance they are defending. A differently framed prompt is a different context, and the model reasons freshly from it each time.',
     color: '#60a5fa',
   },
   {
     label: 'CONTEXT',
     title: 'Context-Sensitivity by Design',
-    body: 'Adaptability is a feature, not a bug. Role prompts and emotional framing are exactly the kind of context these models are built to respond to. The problem is not that they adapt — it is that they adapt even on questions that should have stable answers.',
+    body: 'Adaptability is a feature, not a bug. Role prompts and emotional framing are exactly what these models are built to respond to. The problem is not that they adapt - it is that they adapt even on questions that should have stable answers.',
     color: '#34d399',
   },
 ];
 
-// ── Industry implications ───────────────────────────────────────────────────
-const IMPLICATIONS = [
-  {
-    sector: 'Legal & Compliance',
-    icon: '⚖',
-    body: 'AI tools used for legal analysis or compliance review may reach different normative conclusions depending on how a question is phrased. A user with knowledge of these pressure points could reliably shift the model toward a preferred legal interpretation.',
-    severity: 'high',
-  },
-  {
-    sector: 'Healthcare & Bioethics',
-    icon: '⚕',
-    body: 'Models advising on care prioritization or bioethical tradeoffs showed high Harm-category sensitivity. Emotional reframing ("imagine the patient is a child") consistently pushed models toward protective conclusions, which may or may not align with established clinical ethics.',
-    severity: 'high',
-  },
-  {
-    sector: 'HR & Workplace Tools',
-    icon: '◈',
-    body: 'Authority-category questions showed elevated drift toward pro-authority answers under persuasion. AI tools advising on HR disputes, performance reviews, or management decisions may be nudged toward favoring institutional authority under subtle framing pressure.',
-    severity: 'medium',
-  },
-  {
-    sector: 'Content Moderation',
-    icon: '◉',
-    body: "DeepSeek's 100% reversal rate under persuasion means a determined user can, through persistence alone, flip every moral position the model holds. This has direct implications for adversarial jailbreaking and policy enforcement at scale.",
-    severity: 'high',
-  },
-  {
-    sector: 'Financial Advisory',
-    icon: '◈',
-    body: 'Fairness-category questions drifted away from counterintuitive correct answers when emotional cues were applied. AI financial tools may be steered toward emotionally resonant but analytically questionable recommendations under reframing pressure.',
-    severity: 'medium',
-  },
-  {
-    sector: 'Education & Tutoring',
-    icon: '◎',
-    body: 'Self-Consistency was the most effective stabilizing strategy for ChatGPT and DeepSeek. AI tutors or mentors that encourage students to challenge AI answers may inadvertently trigger more drift, depending on the model and subject matter.',
-    severity: 'low',
-  },
-];
-
-// ── Score chart ─────────────────────────────────────────────────────────────
 const sorted = [...weightedScores].sort((a, b) => b.value - a.value);
 
 const scoreData = [{
@@ -153,7 +143,7 @@ export default function Findings() {
     <section id="findings" style={{ background: '#0d0d18' }}>
       <div className="max-w-5xl mx-auto px-6 py-16">
 
-        {/* Header */}
+        {/* ── Key Results ── */}
         <div className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>Analysis</p>
           <h2 className="text-3xl font-bold mb-2" style={{ color: '#f9fafb' }}>Key results</h2>
@@ -162,7 +152,6 @@ export default function Findings() {
           </p>
         </div>
 
-        {/* Result cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14">
           {RESULT_CARDS.map(f => (
             <div key={f.number} className="rounded-2xl border p-5" style={{ background: f.bg, borderColor: f.border }}>
@@ -173,35 +162,47 @@ export default function Findings() {
           ))}
         </div>
 
-        {/* Drift direction insight */}
-        <div
-          className="rounded-2xl p-6 mb-14"
-          style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(168,85,247,0.08) 100%)', border: '1px solid rgba(99,102,241,0.3)' }}
-        >
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#818cf8' }}>Drift direction</p>
-          <h3 className="text-lg font-bold mb-3" style={{ color: '#f9fafb' }}>All models drift toward answer B when pressured</h3>
-          <p className="text-sm leading-relaxed mb-4" style={{ color: '#9ca3af' }}>
-            Reversal direction is not random. Claude reversed B→A in 100% of its shifts and never went A→B under any strategy.
-            ChatGPT also leaned B→A in 75% of shifts. DeepSeek and Gemini showed B→A bias in roughly 65% of reversals.
-            This pattern likely reflects how the 15 questions were framed — or how these models handle moral uncertainty under pressure.
+        {/* ── Industry Implications ── */}
+        <div className="mb-14">
+          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>Real-world implications</p>
+          <h3 className="text-2xl font-bold mb-2" style={{ color: '#f9fafb' }}>What this means for deployed AI</h3>
+          <p className="text-sm mb-6 max-w-2xl" style={{ color: '#9ca3af' }}>
+            AI systems in high-stakes advisory roles may give different moral or normative guidance depending on how a question is phrased, not just what is asked.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { model: 'ChatGPT', pct: '75', label: 'of reversals B→A', color: '#d1d5db' },
-              { model: 'Claude',   pct: '100', label: 'of reversals B→A', color: '#f97316' },
-              { model: 'DeepSeek', pct: '65',  label: 'of reversals B→A', color: '#4d6bfe' },
-              { model: 'Gemini',   pct: '65',  label: 'of reversals B→A', color: '#34a853' },
-            ].map(m => (
-              <div key={m.model} className="rounded-xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${m.color}33` }}>
-                <p className="text-2xl font-bold font-mono mb-0.5" style={{ color: m.color }}>{m.pct}%</p>
-                <p className="text-xs font-semibold mb-0.5" style={{ color: '#e5e7eb' }}>{m.model}</p>
-                <p className="text-xs" style={{ color: '#6b7280' }}>{m.label}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {IMPLICATIONS.map(im => (
+              <div
+                key={im.sector}
+                className="rounded-2xl p-5"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: `1px solid ${
+                    im.severity === 'high'   ? 'rgba(248,113,113,0.3)' :
+                    im.severity === 'medium' ? 'rgba(251,191,36,0.2)'  :
+                                              'rgba(74,222,128,0.2)'
+                  }`,
+                }}
+              >
+                <span
+                  className="text-xs font-bold px-2 py-0.5 rounded inline-block mb-3"
+                  style={{
+                    background: im.severity === 'high'   ? 'rgba(248,113,113,0.15)' :
+                                im.severity === 'medium' ? 'rgba(251,191,36,0.15)'  :
+                                                          'rgba(74,222,128,0.15)',
+                    color:      im.severity === 'high'   ? '#f87171' :
+                                im.severity === 'medium' ? '#fbbf24' : '#4ade80',
+                  }}
+                >
+                  {im.severity.toUpperCase()} RISK
+                </span>
+                <p className="text-sm font-semibold mb-2" style={{ color: '#f9fafb' }}>{im.sector}</p>
+                <p className="text-xs leading-relaxed" style={{ color: '#9ca3af' }}>{im.body}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Why models shift */}
+        {/* ── Why models shift ── */}
         <div className="mb-14">
           <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>Mechanisms</p>
           <h3 className="text-2xl font-bold mb-2" style={{ color: '#f9fafb' }}>Why models shift</h3>
@@ -211,10 +212,7 @@ export default function Findings() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {WHY_CARDS.map(c => (
               <div key={c.label} className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid ${c.color}33` }}>
-                <span
-                  className="text-xs font-bold px-2.5 py-1 rounded-full inline-block mb-3"
-                  style={{ background: c.color + '20', color: c.color }}
-                >
+                <span className="text-xs font-bold px-2.5 py-1 rounded-full inline-block mb-3" style={{ background: c.color + '20', color: c.color }}>
                   {c.label}
                 </span>
                 <p className="text-sm font-semibold mb-2" style={{ color: '#f9fafb' }}>{c.title}</p>
@@ -224,45 +222,31 @@ export default function Findings() {
           </div>
         </div>
 
-        {/* Industry implications */}
-        <div className="mb-14">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>Real-world implications</p>
-          <h3 className="text-2xl font-bold mb-2" style={{ color: '#f9fafb' }}>What this means for deployed AI</h3>
-          <p className="text-sm mb-6 max-w-2xl" style={{ color: '#9ca3af' }}>
-            AI systems in high-stakes advisory roles may give different moral or normative guidance depending on how a question is phrased — not just what is asked. This is a reliability concern, not a curiosity.
+        {/* ── Drift Direction ── */}
+        <div className="rounded-2xl p-6 mb-14" style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(168,85,247,0.08) 100%)', border: '1px solid rgba(99,102,241,0.3)' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#818cf8' }}>Drift direction</p>
+          <h3 className="text-lg font-bold mb-2" style={{ color: '#f9fafb' }}>All models drift toward answer B when pressured</h3>
+          <p className="text-sm leading-relaxed mb-5" style={{ color: '#9ca3af' }}>
+            Reversal direction is not random. Claude reversed B to A in 100% of its shifts and never went A to B under any strategy.
+            ChatGPT leaned B to A in 75% of shifts. DeepSeek and Gemini showed this bias in roughly 65% of reversals.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {IMPLICATIONS.map(im => (
-              <div
-                key={im.sector}
-                className="rounded-2xl p-5"
-                style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: `1px solid ${im.severity === 'high' ? 'rgba(248,113,113,0.3)' : im.severity === 'medium' ? 'rgba(251,191,36,0.2)' : 'rgba(74,222,128,0.2)'}`,
-                }}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-base" style={{ color: im.severity === 'high' ? '#f87171' : im.severity === 'medium' ? '#fbbf24' : '#4ade80' }}>
-                    {im.icon}
-                  </span>
-                  <span
-                    className="text-xs font-bold px-2 py-0.5 rounded"
-                    style={{
-                      background: im.severity === 'high' ? 'rgba(248,113,113,0.15)' : im.severity === 'medium' ? 'rgba(251,191,36,0.15)' : 'rgba(74,222,128,0.15)',
-                      color:      im.severity === 'high' ? '#f87171' : im.severity === 'medium' ? '#fbbf24' : '#4ade80',
-                    }}
-                  >
-                    {im.severity.toUpperCase()} RISK
-                  </span>
-                </div>
-                <p className="text-sm font-semibold mb-2" style={{ color: '#f9fafb' }}>{im.sector}</p>
-                <p className="text-xs leading-relaxed" style={{ color: '#9ca3af' }}>{im.body}</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { model: 'ChatGPT', pct: '75', color: '#d1d5db' },
+              { model: 'Claude',   pct: '100', color: '#f97316' },
+              { model: 'DeepSeek', pct: '65',  color: '#4d6bfe' },
+              { model: 'Gemini',   pct: '65',  color: '#34a853' },
+            ].map(m => (
+              <div key={m.model} className="rounded-xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.04)', border: `1px solid ${m.color}33` }}>
+                <p className="text-2xl font-bold font-mono mb-0.5" style={{ color: m.color }}>{m.pct}%</p>
+                <p className="text-xs font-semibold mb-0.5" style={{ color: '#e5e7eb' }}>{m.model}</p>
+                <p className="text-xs" style={{ color: '#6b7280' }}>of reversals B to A</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Score chart */}
+        {/* ── Score chart ── */}
         <div className="rounded-2xl border border-[#1f2937] p-5" style={{ background: 'rgba(255,255,255,0.03)' }}>
           <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: '#6366f1' }}>ChatGPT weighted score</p>
           <h3 className="text-base font-semibold mb-1" style={{ color: '#f9fafb' }}>Every strategy lowered the moral consistency score</h3>
@@ -271,8 +255,8 @@ export default function Findings() {
           </p>
           <div className="flex gap-4 text-xs mb-3 flex-wrap" style={{ color: '#9ca3af' }}>
             <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-indigo-500 inline-block" /> Baseline</span>
-            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-red-400 inline-block" /> Pressure</span>
-            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-green-400 inline-block" /> Stabilizing</span>
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-red-400 inline-block" /> Shifter</span>
+            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-green-400 inline-block" /> Stabilizer</span>
           </div>
           <Plot
             data={scoreData}

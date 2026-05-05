@@ -2,8 +2,8 @@ import Plot from '../PlotlyComponent';
 import { MODELS, STRATEGIES, STRATEGY_TYPE, driftRates, modelInfo } from '../data/researchData';
 import ModelLogo from './ModelLogo';
 
-const inducerAvg = (m) => {
-  const vals = STRATEGIES.map((s, i) => STRATEGY_TYPE[s] === 'inducer' ? driftRates[m][i] : null).filter(v => v !== null);
+const shifterAvg = (m) => {
+  const vals = STRATEGIES.map((s, i) => STRATEGY_TYPE[s] === 'shifter' ? driftRates[m][i] : null).filter(v => v !== null);
   return vals.reduce((a, b) => a + b, 0) / vals.length;
 };
 const stabilizerAvg = (m) => {
@@ -14,11 +14,11 @@ const stabilizerAvg = (m) => {
 const chartData = [
   {
     type: 'bar',
-    name: 'Pressure strategies (avg)',
+    name: 'Shifters (avg)',
     x: MODELS,
-    y: MODELS.map(m => Math.round(inducerAvg(m) * 100)),
+    y: MODELS.map(m => Math.round(shifterAvg(m) * 100)),
     marker: { color: '#f87171', line: { color: '#ef4444', width: 1 } },
-    hovertemplate: '<b>%{x}</b><br>Avg inducer shift: <b>%{y}%</b><extra></extra>',
+    hovertemplate: '<b>%{x}</b><br>Avg shifter shift: <b>%{y}%</b><extra></extra>',
   },
   {
     type: 'bar',
@@ -59,7 +59,7 @@ export default function StabilizersSection() {
         <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#6366f1' }}>The paradox</p>
         <h2 className="text-2xl font-bold text-[#f9fafb]">Do stabilizers actually work?</h2>
         <p className="text-sm mt-1 max-w-2xl" style={{ color: '#9ca3af' }}>
-          Pressure strategies were expected to cause reversals; stabilizing strategies were designed to prevent them. Neither worked as cleanly as expected.
+          Shifters were expected to cause reversals; stabilizing strategies were designed to prevent them. Neither worked as cleanly as expected.
         </p>
       </div>
 
@@ -71,7 +71,7 @@ export default function StabilizersSection() {
         <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#f59e0b' }}>Key result</p>
         <p className="text-sm leading-relaxed" style={{ color: '#fcd34d' }}>
           Every model reversed answers even under stabilizing strategies. For Gemini, the average reversal rate under
-          stabilizers was <strong>57%</strong>, nearly identical to its inducer average.
+          stabilizers was <strong>57%</strong>, nearly identical to its shifter average.
           The green bars in the chart below should ideally be near zero.
         </p>
       </div>
@@ -91,7 +91,7 @@ export default function StabilizersSection() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {MODELS.map(m => {
           const mi     = modelInfo[m];
-          const indPct = Math.round(inducerAvg(m) * 100);
+          const indPct = Math.round(shifterAvg(m) * 100);
           const stbPct = Math.round(stabilizerAvg(m) * 100);
           const delta  = stbPct - indPct;
           return (
@@ -102,7 +102,7 @@ export default function StabilizersSection() {
               </div>
               <div className="space-y-2">
                 <div>
-                  <p className="text-xs mb-0.5" style={{ color: '#9ca3af' }}>Inducers avg</p>
+                  <p className="text-xs mb-0.5" style={{ color: '#9ca3af' }}>Shifters avg</p>
                   <p className="text-xl font-bold" style={{ color: '#f87171' }}>{indPct}%</p>
                 </div>
                 <div>
@@ -116,7 +116,7 @@ export default function StabilizersSection() {
                     color:      delta <= -10 ? '#4ade80'               : delta <= 0 ? '#fbbf24'               : '#f87171',
                   }}
                 >
-                  {delta > 0 ? `+${delta}%` : `${delta}%`} vs inducers
+                  {delta > 0 ? `+${delta}%` : `${delta}%`} vs shifters
                 </div>
               </div>
             </div>
