@@ -45,10 +45,10 @@ export const weightedScores = [
 
 // Key stats for hero
 export const keyStats = [
-  { value: '4',   label: 'AI Models Tested',               note: 'ChatGPT, Claude, DeepSeek, Gemini' },
-  { value: '15',  label: 'Moral Questions Per Model',       note: 'Each answered 6 ways: once baseline, once per strategy' },
-  { value: '0',   label: 'Strategies That Caused No Shift', note: 'Every strategy triggered at least some reversals in at least one model' },
-  { value: '56%', label: 'Gemini Reversed on More Than Half', note: 'The most inconsistent model across all five strategies' },
+  { value: '300', label: 'Total Trials',                    note: '15 questions x 5 strategies x 4 models, each human-reviewed' },
+  { value: '8%',  label: 'ChatGPT Shift Rate',              note: 'Most stable — heavily RLHF-aligned to resist over-updating' },
+  { value: '56%', label: 'Gemini Shift Rate',               note: 'Least stable — optimizes for helpfulness over consistency' },
+  { value: '0',   label: 'Strategies That Caused No Shift', note: 'Every strategy triggered reversals in at least one model' },
 ];
 
 // The 15 questions (from final_15_representative_questions.csv)
@@ -197,25 +197,25 @@ export const modelInfo = {
   ChatGPT: {
     color: '#d1d5db', bg: '#eff6ff', border: '#bfdbfe',
     logo: '/logos/chatgpt.svg', logoType: 'icon',
-    tagline: 'Most consistent model',
-    summary: 'ChatGPT reversed 0 answers under Emotional Framing and Self-Consistency. Under direct persuasion it reversed 4 of 15. It responds to authority-based pressure but not emotional or consistency-based framing.',
+    tagline: 'Most Stable — 8% shift rate',
+    summary: 'ChatGPT is most stable because it is heavily RLHF-aligned to avoid contradicting itself. It reversed 0 answers under Emotional Framing and Self-Consistency. Under persuasion it reversed 4 of 15 — it responds to authority-based pressure more than emotional framing.',
   },
   Claude: {
     color: '#f97316', bg: '#fffbeb', border: '#fde68a',
     logo: '/logos/claude.svg', logoType: 'wordmark',
-    tagline: 'Reversed most under stabilizers',
-    summary: 'Claude reversed 7 of 15 answers under the Ethical Reminder strategy, which was designed to prevent reversals. Under Emotional Framing it reversed only 1. Its reversal pattern is difficult to anticipate from strategy type alone.',
+    tagline: 'Moderately Stable — 25% shift rate',
+    summary: 'Claude is stable except when prompts invoke moral authority. The Ethical Reminder, which applies the UDHR, caused 7 of 15 reversals — more than persuasion. Its Constitutional AI training treats moral authority anchors as new reasoning input, not stabilizers.',
   },
   DeepSeek: {
     color: '#4d6bfe', bg: '#fef2f2', border: '#fecaca',
     logo: '/logos/deepseek.svg', logoType: 'wordmark',
-    tagline: 'All-or-nothing under persuasion',
-    summary: 'DeepSeek reversed all 15 answers when told experts disagreed. Under Role Prompting and Self-Consistency it reversed 0. Its consistency depends entirely on the type of pressure applied.',
+    tagline: 'Inconsistent — 32% shift rate',
+    summary: 'DeepSeek reversed all 15 answers under persuasion but held firm under Role Prompting and Self-Consistency with 0 reversals. It has a strong deference to stated expert consensus — but its self-consistency and role anchors are robust. It is specifically vulnerable to authority-style argument.',
   },
   Gemini: {
     color: '#34a853', bg: '#f5f3ff', border: '#ddd6fe',
     logo: '/logos/gemini.svg', logoType: 'wordmark',
-    tagline: 'Shifted under every strategy',
-    summary: 'Gemini reversed 8 or 9 of its 15 answers under every single strategy, including both stabilizers. It was the only model where neither stabilizing strategy reduced reversals.',
+    tagline: 'Least Stable — 56% shift rate',
+    summary: 'Gemini optimizes for helpfulness, not consistency — it tries to adapt to every prompt. It reversed 8 or 9 of 15 answers under every strategy including both stabilizers. Its 60% Self-Consistency drift suggests it has no stable internal model to refer back to at all.',
   },
 };

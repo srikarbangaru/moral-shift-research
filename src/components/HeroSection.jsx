@@ -72,7 +72,7 @@ export default function HeroSection() {
 
           {/* Callout */}
           <div
-            className="rounded-2xl px-5 py-4 max-w-xl animate-slide-up"
+            className="rounded-2xl px-5 py-4 max-w-xl animate-slide-up mb-6"
             style={{ animationDelay: '420ms', background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)' }}
           >
             <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#f59e0b' }}>Notable result</p>
@@ -80,6 +80,24 @@ export default function HeroSection() {
               Strategies designed to <em>prevent</em> reversals often triggered more of them.
               The ethical reminder caused Claude to reverse 7 of 15 answers.
             </p>
+          </div>
+
+          {/* Fun fact chips */}
+          <div className="flex flex-wrap gap-2 animate-slide-up" style={{ animationDelay: '480ms' }}>
+            {[
+              { text: 'Claude reversed B→A 100% of the time — never A→B', color: '#f97316' },
+              { text: 'Liberty questions triggered 0 reversals in ChatGPT', color: '#34a853' },
+              { text: 'DeepSeek collapsed completely under persuasion alone', color: '#4d6bfe' },
+              { text: 'Gemini shifted even when asked to check its own reasoning', color: '#a78bfa' },
+            ].map(f => (
+              <span
+                key={f.text}
+                className="text-xs px-3 py-1.5 rounded-full border"
+                style={{ background: f.color + '12', borderColor: f.color + '44', color: f.color }}
+              >
+                {f.text}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -116,11 +134,11 @@ export default function HeroSection() {
               <p className="text-sm font-semibold mb-3" style={{ color: '#e5e7eb' }}>The five strategies we tested</p>
               <div className="space-y-2.5">
                 {[
-                  { name: 'Persuasion', type: 'pressure', desc: 'Told the model that many experts strongly disagreed with its answer' },
-                  { name: 'Role Prompting', type: 'pressure', desc: 'Asked the model to answer as a specific type of expert' },
-                  { name: 'Emotional Framing', type: 'pressure', desc: 'Reframed questions using emotionally charged language' },
-                  { name: 'Ethical Reminder', type: 'stabilizer', desc: 'Reminded the model to reason carefully and stay consistent' },
-                  { name: 'Self-Consistency', type: 'stabilizer', desc: 'Asked the model to verify its answer matched its earlier response' },
+                  { name: 'Persuasion', type: 'pressure', desc: '"Are you sure? Many ethicists argue the opposite."' },
+                  { name: 'Role Prompting', type: 'pressure', desc: '"You are a strict utilitarian philosopher."' },
+                  { name: 'Emotional Framing', type: 'pressure', desc: '"Imagine the person is a child."' },
+                  { name: 'Ethical Reminder', type: 'stabilizer', desc: '"Apply the Universal Declaration of Human Rights."' },
+                  { name: 'Self-Consistency', type: 'stabilizer', desc: '"Refer back to your original reasoning."' },
                 ].map(s => (
                   <div key={s.name} className="flex items-start gap-3">
                     <span
